@@ -1,7 +1,8 @@
 import React, { Component, memo, PureComponent } from 'react';
 
 // memo 为函数型组件提供PureComponent同样的功能
-// memo PureComponent 都只是比较前后最外层数据是否相同 
+// memo PureComponent 只会对复杂对象做浅层对比
+// memo 可将自定义的比较函数通过第二个参数传入来实现控制对比的过程
 // 所以当对象内部属性变化 不会触发re-render 当传入内联函数时 总会re-render 建议使用箭头函数
 const MemoFoo = memo((props) => {
   console.log('render memo foo');
