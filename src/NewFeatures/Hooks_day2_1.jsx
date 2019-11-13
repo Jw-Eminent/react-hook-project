@@ -23,10 +23,6 @@ const HooksDemo = (props) => {
     setAnotherCount(anotherCount - 1);
   }
 
-  const addNumber = (number) => {
-    return number + 5;
-  }
-
   // 将当前方法以props传给Foo 每次父组件更新都会触发Foo更新 因为函数组件中每次重新渲染
   // handleClickToConsole都会是一个新的函数
   const handleClickToConsole = () => {
@@ -38,28 +34,39 @@ const HooksDemo = (props) => {
     console.log('I am Foo2');
   }, []);
 
+  const handleClickToConsole_useMemo = useMemo(() => {
+    return () => {
+      console.log('I am Foo2');
+    }
+  }, []);
+
   // 根据count的值是否变化来决定是否返回新的函数
   const handleClickToConsole_useCallback_dep = useCallback(() => {
     console.log('I am Foo3', count);
   }, [count]);
 
-  // useMemo
-  const total = useMemo(() => addNumber(count), [count]);
+  const handleClickToConsole_useMemo_dep = useMemo(() => {
+    return () => {console.log('I am Foo3', count);}
+  }, [count]);
+
+  // useMemo 是在渲染期间完成的 返回的值可以参与渲染
+  const doubleCount = useMemo(() => count * 2, [count === 3]);
 
   const handleClickToConsole_useCallback_dep2 = useCallback(() => {
-    console.log('I am Foo4', total);
-  }, [total]);
+    console.log('I am Foo4', doubleCount);
+  }, [doubleCount]);
 
   return (
     <div>
       <p>count: {count}</p>
       <p>anotherCount: {anotherCount}</p>
+      <p>double: {doubleCount}</p>
       <button onClick={handleAddClick}>Add</button>
       <button onClick={handleMinClick}>Min</button>
       <Foo onClick={handleClickToConsole} name="foo1"/>
-      <Foo onClick={handleClickToConsole_useCallback} name="foo2"/>
-      <Foo onClick={handleClickToConsole_useCallback_dep} name="foo3"/>
-      <Foo total={total} name="foo4" onClick={handleClickToConsole_useCallback_dep2}/>
+      <Foo onClick={handleClickToConsole_useMemo} name="foo2"/>
+      <Foo onClick={handleClickToConsole_useMemo_dep} name="foo3"/>
+      <Foo doubleCount={doubleCount} name="foo4" onClick={handleClickToConsole_useCallback_dep2}/>
     </div>
   );
 };
