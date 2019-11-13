@@ -13,11 +13,11 @@ import React, { useState, useEffect } from 'react';
 function HooksDemo(props) {
   // useState
   const [count, setCount] = useState(() => {
-    // 只在组件初始化时运行一次
+    // 只在组件初始化时运行一次 react 会在重复渲染时记住它当前的值
     return props.defaultCount || 0;
   });
 
-  // useEffect  render之后调用 
+  // useEffect  render之后调用
   // 可以看做是 componentDidMount componentDidUpdate componentWillUnmount的组合
   const [windowSize, setWindowSize] = useState({
     width: document.documentElement.clientWidth,
@@ -43,14 +43,14 @@ function HooksDemo(props) {
   useEffect(() => {
     console.log('count effect');
     document.title = count;
-  }, [count]); 
+  }, [count]);
   // 通过设置useEffect第二参数来决定是否需要执行effect,count如果未变化 则不执行
 
   return (
     <div style={{padding: 20}}>
       <p>{ count }</p>
       <p>
-        Window size: 
+        Window size:
         {`width: ${windowSize.width}px, height: ${windowSize.height}`}px
       </p>
       <button onClick={() => {setCount(count + 1 ); }}>Add</button>
