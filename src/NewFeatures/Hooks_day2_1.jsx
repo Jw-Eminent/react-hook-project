@@ -50,6 +50,8 @@ const HooksDemo = (props) => {
   }, [count]);
 
   // useMemo 是在渲染期间完成的 返回的值可以参与渲染
+  // 根据依赖来决定这段逻辑是否执行
+  // 如果useMemo返回的是函数 则useMemo(() => fn, [...]) <==> useCallback(fn, [...])
   const doubleCount = useMemo(() => count * 2, [count === 3]);
 
   const handleClickToConsole_useCallback_dep2 = useCallback(() => {

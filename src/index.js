@@ -9,6 +9,7 @@ import './index.css';
 // import HooksDay2Demo from './NewFeatures/Hooks_day2';
 // import HooksDay21Demo from './NewFeatures/Hooks_day2_1';
 import HooksDay31 from './NewFeatures/Hooks_day3_1';
+// import HooksDay32 from './NewFeatures/Hooks_day3_2';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(<HooksDay31 />, document.getElementById('root'));
