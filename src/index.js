@@ -8,9 +8,10 @@ import './index.css';
 // import HooksDemo from './NewFeatures/Hooks_day1';
 // import HooksDay2Demo from './NewFeatures/Hooks_day2';
 // import HooksDay21Demo from './NewFeatures/Hooks_day2_1';
-import HooksDay31 from './NewFeatures/Hooks_day3_1';
+// import HooksDay31 from './NewFeatures/Hooks_day3_1';
 // import HooksDay32 from './NewFeatures/Hooks_day3_2';
+import TodoList from './TodoList/TodoList';
 import * as serviceWorker from './serviceWorker';
 
-ReactDOM.render(<HooksDay31 />, document.getElementById('root'));
+ReactDOM.render(<TodoList />, document.getElementById('root'));
 serviceWorker.unregister();
