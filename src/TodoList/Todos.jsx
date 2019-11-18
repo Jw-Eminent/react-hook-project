@@ -2,7 +2,7 @@ import React from 'react';
 import TodoListItem from './TodoItem';
 
 const Todos = (props) => {
-  const { dataSource, onRemove, onToggle } = props;
+  const { dataSource, removeTodo, toggleTodo } = props;
   return (
     <ul className="todo-list-todos">
       {
@@ -10,8 +10,8 @@ const Todos = (props) => {
           <TodoListItem
             key={data.id}
             todo={data}
-            onRemove={onRemove}
-            onToggle={onToggle}
+            onRemove={removeTodo}
+            onToggle={toggleTodo}
           />
         ))
       }

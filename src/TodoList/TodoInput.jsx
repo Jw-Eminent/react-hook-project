@@ -1,9 +1,9 @@
 import React, { useRef, useEffect } from 'react';
 
-const dataID = Date.now();
+let dataID = Date.now();
 
 const TodoInput = (props) => {
-  const { onAdd: addTodo } = props;
+  const { addTodo } = props;
   const inputRef = useRef(null);
 
   useEffect(() => {
@@ -19,7 +19,7 @@ const TodoInput = (props) => {
     }
 
     addTodo({
-      id: dataID,
+      id: ++dataID,
       text: newText,
       complete: false
     });
@@ -33,7 +33,7 @@ const TodoInput = (props) => {
         <input
           type="text"
           ref={inputRef}
-          placeholder="What do you want to do next?"
+          placeholder="What needs to be done?"
           className="todo-list-header-input"
         />
       </form>
