@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect, memo } from 'react';
+import React, { useState, useEffect, memo } from 'react';
 import Todos from './Todos';
 import TodoInput from './TodoInput';
 import reducer from './reducers';
@@ -11,6 +11,10 @@ import {
 import './style.scss';
 
 const LS_TODOS = '_todoList';
+const store = {
+  todos: [],
+  increment: 1
+};
 
 function bindActionCreators(actionCreators, dispatch) {
   const result = {};
@@ -29,23 +33,30 @@ const TodoList = memo(() => {
   const [todos, setTodos] = useState([]);
   const [increment, setIncrement] = useState(0);
 
-  const dispatch = useCallback((action) => {
-    const state = {
+  useEffect(() => {
+    Object.assign(store, {
       todos,
       increment
-    };
+    });
+  }, [todos, increment]);
 
+  const dispatch = (action) => {
     const setters = {
       todos: setTodos,
       increment: setIncrement
     };
 
-    const newState = reducer(state, action);
+    if ('function' === typeof action) {
+      action(dispatch, store);
+      return;
+    }
+
+    const newState = reducer(store, action);
 
     for (let key in newState) {
       setters[key](newState[key]);
     }
-  }, [todos, increment]);
+  };
 
   useEffect(() => {
     const todoList = JSON.parse(localStorage.getItem(LS_TODOS)) || [];

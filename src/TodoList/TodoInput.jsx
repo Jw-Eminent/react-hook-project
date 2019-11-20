@@ -1,8 +1,6 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, memo } from 'react';
 
-let dataID = Date.now();
-
-const TodoInput = (props) => {
+const TodoInput = memo((props) => {
   const { addTodo } = props;
   const inputRef = useRef(null);
 
@@ -18,11 +16,7 @@ const TodoInput = (props) => {
       return;
     }
 
-    addTodo({
-      id: ++dataID,
-      text: newText,
-      complete: false
-    });
+    addTodo(newText);
     inputRef.current.value = '';
   };
 
@@ -39,6 +33,6 @@ const TodoInput = (props) => {
       </form>
     </div>
   );
-};
+});
 
 export default TodoInput;

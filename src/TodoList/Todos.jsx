@@ -1,7 +1,7 @@
 import React from 'react';
 import TodoListItem from './TodoItem';
 
-const Todos = (props) => {
+const Todos = React.memo((props) => {
   const { dataSource, removeTodo, toggleTodo } = props;
   return (
     <ul className="todo-list-todos">
@@ -17,6 +17,6 @@ const Todos = (props) => {
       }
     </ul>
   );
-};
+});
 
 export default Todos;
