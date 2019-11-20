@@ -1,13 +1,13 @@
 import React, { useState, useCallback, useEffect, memo } from 'react';
 import Todos from './Todos';
 import TodoInput from './TodoInput';
+import reducer from './reducers';
 import { 
-  TODO_ADD, 
-  TODO_SET, 
-  TODO_REMOVE, 
-  TODO_TOGGLE
-} from './actionType';
-import { setTodosList, addTodoItem, removeTodoItem, toggleTodoStatus } from './actionCreators';
+  setTodosList, 
+  addTodoItem, 
+  removeTodoItem, 
+  toggleTodoStatus 
+} from './actionCreators';
 import './style.scss';
 
 const LS_TODOS = '_todoList';
@@ -27,54 +27,30 @@ function bindActionCreators(actionCreators, dispatch) {
 
 const TodoList = memo(() => {
   const [todos, setTodos] = useState([]);
+  const [increment, setIncrement] = useState(0);
 
   const dispatch = useCallback((action) => {
-    switch(action.type) {
-      case TODO_SET:
-        setTodos(action.payload);
-        break;
-      case TODO_ADD: 
-        setTodos(preTodos => [...preTodos, action.payload]);
-        break;
-      case TODO_REMOVE:
-        setTodos(preTodos => preTodos.filter(todo => todo.id !== action.payload));
-        break;
-      case TODO_TOGGLE:
-        setTodos(preTodos =>
-          preTodos.map(todo =>
-            todo.id === action.payload
-            ? {...todo, complete: !todo.complete}
-            : todo
-          )
-        );
-        break;
-      default:
-        break;
+    const state = {
+      todos,
+      increment
+    };
+
+    const setters = {
+      todos: setTodos,
+      increment: setIncrement
+    };
+
+    const newState = reducer(state, action);
+
+    for (let key in newState) {
+      setters[key](newState[key]);
     }
-  }, []);
-  
-  // const addTodoItem = useCallback((todo) => {
-  //   return setTodos(preTodos => [...preTodos, todo]);
-  // }, []);
-
-  // const removeTodo = useCallback((id) => {
-  //   return setTodos(preTodos => preTodos.filter(todo => todo.id !== id));
-  // }, []);
-
-  // const toggleTodo = useCallback((id) => {
-  //   return setTodos(preTodos =>
-  //     preTodos.map(todo =>
-  //       todo.id === id
-  //       ? {...todo, complete: !todo.complete}
-  //       : todo
-  //     )
-  //   );
-  // }, [])
+  }, [todos, increment]);
 
   useEffect(() => {
     const todoList = JSON.parse(localStorage.getItem(LS_TODOS)) || [];
     dispatch(setTodosList(todoList));
-  }, [dispatch]);
+  }, []);
 
   useEffect(() => {
     localStorage.setItem(LS_TODOS, JSON.stringify(todos));
