@@ -1,16 +1,16 @@
-import React, { useState, useEffect, memo } from 'react';
-import Todos from './Todos';
-import TodoInput from './TodoInput';
-import reducer from './reducers';
-import { 
-  setTodosList, 
-  addTodoItem, 
-  removeTodoItem, 
-  toggleTodoStatus 
-} from './actionCreators';
-import './style.scss';
+import React, { useState, useEffect, memo } from "react";
+import Todos from "./Todos";
+import TodoInput from "./TodoInput";
+import reducer from "./reducers";
+import {
+  setTodosList,
+  addTodoItem,
+  removeTodoItem,
+  toggleTodoStatus
+} from "./actionCreators";
+import "./style.scss";
 
-const LS_TODOS = '_todoList';
+const LS_TODOS = "_todoList";
 const store = {
   todos: [],
   increment: 1
@@ -23,7 +23,7 @@ function bindActionCreators(actionCreators, dispatch) {
       const actionCreator = actionCreators[key];
       const action = actionCreator(...args);
       dispatch(action);
-    }
+    };
   }
 
   return result;
@@ -40,13 +40,13 @@ const TodoList = memo(() => {
     });
   }, [todos, increment]);
 
-  const dispatch = (action) => {
+  const dispatch = action => {
     const setters = {
       todos: setTodos,
       increment: setIncrement
     };
 
-    if ('function' === typeof action) {
+    if ("function" === typeof action) {
       action(dispatch, store);
       return;
     }
@@ -69,19 +69,16 @@ const TodoList = memo(() => {
 
   return (
     <div className="todo-list-container">
-      <TodoInput 
-        {
-          ...bindActionCreators({addTodo: addTodoItem}, dispatch)
-        }
-      />
+      <TodoInput {...bindActionCreators({ addTodo: addTodoItem }, dispatch)} />
       <Todos
         dataSource={todos}
-        {
-          ...bindActionCreators({
+        {...bindActionCreators(
+          {
             removeTodo: removeTodoItem,
             toggleTodo: toggleTodoStatus
-          }, dispatch)
-        }
+          },
+          dispatch
+        )}
       />
     </div>
   );
