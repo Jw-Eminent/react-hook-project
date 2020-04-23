@@ -72,11 +72,7 @@ module.exports = function(webpackEnv) {
         loader: MiniCssExtractPlugin.loader,
         options: Object.assign(
           {},
-          shouldUseRelativeAssetPaths
-            ? {
-                publicPath: "../../"
-              }
-            : undefined
+          shouldUseRelativeAssetPaths ? { publicPath: "../../" } : undefined
         )
       },
       {
@@ -299,11 +295,7 @@ module.exports = function(webpackEnv) {
       strictExportPresence: true,
       rules: [
         // Disable require.ensure as it's not a standard language feature.
-        {
-          parser: {
-            requireEnsure: false
-          }
-        },
+        { parser: { requireEnsure: false } },
 
         // First, run the linter.
         // It's important to do this before Babel processes the JS.
@@ -381,9 +373,7 @@ module.exports = function(webpackEnv) {
                 presets: [
                   [
                     require.resolve("babel-preset-react-app/dependencies"),
-                    {
-                      helpers: true
-                    }
+                    { helpers: true }
                   ]
                 ],
                 cacheDirectory: true,
