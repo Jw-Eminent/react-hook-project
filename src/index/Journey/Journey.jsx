@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import switchImg from "./imgs/switch.svg";
-import "./journey.scss";
+import switchImg from "../imgs/switch.svg";
+import "./Journey.scss";
 
 const Journey = props => {
   const { from, to, exchangeFromTo, showCitySelector } = props;
@@ -27,7 +27,7 @@ const Journey = props => {
       </div>
       <div
         className="train-ticket-journey-station"
-        onClick={() => () => showCitySelector(false)}
+        onClick={() => showCitySelector(false)}
       >
         <input
           type="text"

@@ -57,6 +57,7 @@ export const setSelectedCity = city => {
     } else {
       dispatch(setTo(city));
     }
+    dispatch(hideCitySelector());
   };
 };
 
@@ -75,5 +76,41 @@ export const exchangeFromTo = () => {
     const { from, to } = getState();
     dispatch(setFrom(to));
     dispatch(setTo(from));
+  };
+};
+
+export const fetchCityData = () => {
+  return (dispatch, getState) => {
+    const { isLoadingCityData } = getState;
+    if (isLoadingCityData) {
+      return;
+    }
+
+    const cache = JSON.parse(localStorage.getItem("city_data_cache") || "{}");
+    if (cache.expires && Date.now() < cache.expires) {
+      dispatch(setCityData(cache.data));
+      return;
+    }
+
+    dispatch(setIsLoadingCityData(true));
+
+    fetch("/rest/cities?_" + Date.now())
+      .then(res => res.json())
+      .then(cityData => {
+        dispatch(setCityData(cityData));
+
+        localStorage.setItem(
+          "city_data_cache",
+          JSON.stringify({
+            expires: Date.now() + 60 * 1000,
+            data: cityData
+          })
+        );
+
+        dispatch(setIsLoadingCityData(false));
+      })
+      .catch(err => {
+        dispatch(setIsLoadingCityData(false));
+      });
   };
 };
