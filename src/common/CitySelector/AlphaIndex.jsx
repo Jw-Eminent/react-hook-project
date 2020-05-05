@@ -11,6 +11,13 @@ const AlphaIndex = memo(() => {
 
   return (
     <div className="city-index">
+      {/* <li
+        key="hot_city"
+        className="city-index-item"
+        onClick={() => toAlpha('hot_city')}
+      >
+        热门城市
+      </li> */}
       {alphasArr.map(alpha => (
         <li
           key={alpha}

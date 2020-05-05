@@ -29,7 +29,13 @@ const CitySelector = memo(
         return <div>Loading</div>;
       }
       if (cityData) {
-        return <CityList sections={cityData.cityList} onSelect={onSelect} />;
+        return (
+          <CityList
+            hotCities={cityData.hotCities}
+            sections={cityData.cityList}
+            onSelect={onSelect}
+          />
+        );
       }
       return <div>Error</div>;
     };

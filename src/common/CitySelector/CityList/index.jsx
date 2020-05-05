@@ -1,17 +1,17 @@
 import React, { memo } from "react";
 import PropTypes from "prop-types";
 import CitySection from "./CitySection";
+import HotCities from "./HotCities";
 import AlphaIndex from "../AlphaIndex";
 
-const CityList = memo(({ sections, onSelect }) => {
+const CityList = memo(({ hotCities, sections, onSelect }) => {
   return (
     <div className="city-list">
-      <div className="city-list-host">
-        {
-          // Todo: add host citi list
-        }
-      </div>
       <div className="city-cate">
+        {/* <HotCities
+          hotCities={hotCities || []}
+          onSelect={onSelect}
+        /> */}
         {sections.map(section => (
           <CitySection
             title={section.title}
