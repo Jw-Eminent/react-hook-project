@@ -8,10 +8,7 @@ const CityList = memo(({ hotCities, sections, onSelect }) => {
   return (
     <div className="city-list">
       <div className="city-cate">
-        {/* <HotCities
-          hotCities={hotCities || []}
-          onSelect={onSelect}
-        /> */}
+        <HotCities hotCities={hotCities || []} onSelect={onSelect} />
         {sections.map(section => (
           <CitySection
             title={section.title}
