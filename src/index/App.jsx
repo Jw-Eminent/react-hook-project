@@ -6,9 +6,9 @@ import Header from "../common/Header/Header";
 import CitySelector from "../common/CitySelector/CitySelector";
 
 import DepartDate from "./DepartDate";
-import HighSpeed from "./HighSpeed";
+// import HighSpeed from "./HighSpeed";
 import Journey from "./Journey";
-import Submit from "./Submit";
+// import Submit from "./Submit";
 
 import "./App.scss";
 
@@ -17,7 +17,8 @@ import {
   hideCitySelector,
   exchangeFromTo,
   fetchCityData,
-  setSelectedCity
+  setSelectedCity,
+  showDateSelector
 } from "./Model/actions";
 
 const App = props => {
@@ -27,6 +28,7 @@ const App = props => {
     isCitySelectorVisible,
     cityData,
     isLoadingCityData,
+    departDate,
     dispatch
   } = props;
 
@@ -63,6 +65,15 @@ const App = props => {
     );
   }, []);
 
+  const departDateCbs = useMemo(() => {
+    return bindActionCreators(
+      {
+        onClick: showDateSelector
+      },
+      dispatch
+    );
+  });
+
   return (
     <div>
       <div className="train-ticket-header-wrapper">
@@ -76,9 +87,9 @@ const App = props => {
           // exchangeFromTo={doExchangeFromTo}
           // showCitySelector={doShowCitySelector}
         />
-        <DepartDate />
-        <HighSpeed />
-        <Submit />
+        <DepartDate time={departDate} {...departDateCbs} />
+        {/* <HighSpeed />
+        <Submit /> */}
       </form>
       <CitySelector
         show={isCitySelectorVisible}

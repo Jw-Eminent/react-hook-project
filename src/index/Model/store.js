@@ -12,7 +12,7 @@ const store = createStore(
     cityData: null,
     isLoadingCityData: false,
     isDateSelectorVisible: false,
-    // departDate: '',
+    departDate: Date.now(),
     highSpeed: false
   },
   applyMiddleware(thunk)

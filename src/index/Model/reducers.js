@@ -72,5 +72,15 @@ export default {
       default:
         return state;
     }
+  },
+  departDate(state = Date.now(), action) {
+    const { type, payload } = action;
+    switch (type) {
+      case Action.SET_DEPART_DATE:
+        return payload;
+      default:
+    }
+
+    return state;
   }
 };

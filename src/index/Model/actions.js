@@ -79,6 +79,13 @@ export const exchangeFromTo = () => {
   };
 };
 
+export function setDepartDate(departDate) {
+  return {
+    type: Action.SET_DEPART_DATE,
+    payload: departDate
+  };
+}
+
 export const fetchCityData = () => {
   return (dispatch, getState) => {
     const { isLoadingCityData } = getState;
