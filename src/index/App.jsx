@@ -4,6 +4,7 @@ import { bindActionCreators } from "redux";
 
 import Header from "../common/Header/Header";
 import CitySelector from "../common/CitySelector/CitySelector";
+import DateSelector from "../common/DateSelector/DateSelector";
 
 import DepartDate from "./DepartDate";
 // import HighSpeed from "./HighSpeed";
@@ -18,14 +19,19 @@ import {
   exchangeFromTo,
   fetchCityData,
   setSelectedCity,
-  showDateSelector
+  showDateSelector,
+  hideDateSelector,
+  setDepartDate
 } from "./Model/actions";
+
+import { h0 } from "../common/fp";
 
 const App = props => {
   const {
     from,
     to,
     isCitySelectorVisible,
+    isDateSelectorVisible,
     cityData,
     isLoadingCityData,
     departDate,
@@ -36,6 +42,13 @@ const App = props => {
     window.history.back();
   }, []);
 
+  const handleDateSelect = useCallback(day => {
+    if (!day || day < h0()) {
+      return;
+    }
+    dispatch(setDepartDate(day));
+    dispatch(hideDateSelector());
+  }, []);
   // const doExchangeFromTo = useCallback(() => {
   //   dispatch(exchangeFromTo());
   // }, []);
@@ -74,6 +87,15 @@ const App = props => {
     );
   });
 
+  const dateSelectorCbs = useMemo(() => {
+    return bindActionCreators(
+      {
+        onBack: hideDateSelector
+      },
+      dispatch
+    );
+  });
+
   return (
     <div>
       <div className="train-ticket-header-wrapper">
@@ -96,6 +118,11 @@ const App = props => {
         cityData={cityData}
         isLoading={isLoadingCityData}
         {...citySelectorCbs}
+      />
+      <DateSelector
+        show={isDateSelectorVisible}
+        onSelect={handleDateSelect}
+        {...dateSelectorCbs}
       />
     </div>
   );

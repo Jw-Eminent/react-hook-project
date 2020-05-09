@@ -17,6 +17,13 @@ const HostCities = memo(({ hotCities = [], onSelect }) => {
             {city.name}
           </li>
         ))}
+        <i></i>
+        <i></i>
+        <i></i>
+        <i></i>
+        <i></i>
+        <i></i>
+        <i></i>
       </ul>
     </React.Fragment>
   );

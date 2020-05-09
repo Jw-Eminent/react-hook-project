@@ -10,7 +10,7 @@ const CitySelector = memo(
 
     const key = useMemo(() => searchKey.trim(), [searchKey]);
 
-    const containerClass = classnames("train-ticket-citySelector", {
+    const containerClass = classnames("train-ticket-city-selector", {
       hidden: !show
     });
     const cleanIconClass = classnames("city-search-clean", {
